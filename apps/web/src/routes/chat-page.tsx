@@ -349,6 +349,7 @@ export const ChatPage = (): ReactElement => {
           onSend={send}
           stopRun={stopRun}
           suggestions={suggestions}
+          wide={firstUse}
         />
       </div>
       {watchlistVisible ? (

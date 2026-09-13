@@ -4,6 +4,7 @@
  * answered from wherever the person is looking.
  */
 
+import { cn } from "@froggy/ui/lib/utils";
 import { AnimatePresence } from "motion/react";
 import { useEffect, useRef } from "react";
 import type { ReactElement } from "react";
@@ -31,6 +32,7 @@ export const ComposerStack = ({
   onSend,
   stopRun,
   suggestions,
+  wide = false,
 }: {
   readonly app: AppStream;
   readonly busy: boolean;
@@ -41,6 +43,8 @@ export const ComposerStack = ({
   readonly onSend: (text: string) => void;
   readonly stopRun: ReturnType<typeof useStopRun>;
   readonly suggestions: readonly string[];
+  /** Home is wider than a conversation; the composer follows it. */
+  readonly wide?: boolean;
 }): ReactElement => {
   const delays = useArrivalDelays(app.approvals.map((request) => request.id));
   const approvalCount = app.approvals.length;
@@ -64,7 +68,12 @@ export const ComposerStack = ({
     document.querySelector<HTMLTextAreaElement>("#composer-message")?.focus();
   }, [approvalCount]);
   return (
-    <div className="mx-auto flex w-full max-w-3xl shrink-0 flex-col gap-3 px-4 pt-2 pb-[max(1rem,env(safe-area-inset-bottom))]">
+    <div
+      className={cn(
+        "mx-auto flex w-full shrink-0 flex-col gap-3 px-4 pt-2 pb-[max(1rem,env(safe-area-inset-bottom))]",
+        wide ? "max-w-5xl sm:px-6" : "max-w-3xl"
+      )}
+    >
       <NoticeList
         notices={[
           ...chatNotices,

@@ -22,7 +22,7 @@ const TILE =
   "tile focus-visible:ring-ring/50 short:gap-2 short:p-3 flex flex-col gap-3 p-4 outline-none focus-visible:ring-3 sm:p-5";
 
 /** On a short phone the two small tiles become rows so all four clear the composer. */
-const SMALL_TILE = `${TILE} short:col-span-2 short:flex-row short:items-center short:gap-3 col-span-1 sm:col-span-3 lg:col-span-2`;
+const SMALL_TILE = `${TILE} short:col-span-2 col-span-1 sm:col-span-2 lg:col-span-1`;
 
 const dayOf = (iso: number): string =>
   new Date(iso).toLocaleDateString(undefined, {
@@ -43,7 +43,7 @@ const Glyph = ({ kind }: { readonly kind: "coin" | "trip" | "find" }) => {
     stroke: "currentColor",
     strokeLinecap: "round" as const,
     strokeLinejoin: "round" as const,
-    strokeWidth: 1.75,
+    strokeWidth: 2,
     viewBox: "0 0 24 24",
   };
   if (kind === "coin") {
@@ -133,11 +133,11 @@ export const EmptyState = ({
   <section
     aria-label="Use Froggy here"
     data-slot="home-intro"
-    className="short:gap-3 my-auto flex flex-col gap-4 py-1 sm:gap-6"
+    className="short:gap-3 my-auto flex flex-col gap-4 py-1 sm:gap-5 xl:gap-6"
   >
     <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-3 sm:gap-6">
       <div className="min-w-0">
-        <h1 className="font-display short:text-2xl text-[1.75rem] leading-[1.05] font-bold tracking-[-0.03em] text-balance sm:text-[2.5rem] lg:text-[3.25rem]">
+        <h1 className="font-display short:text-xl text-[1.75rem] leading-[1.05] font-bold tracking-[-0.03em] text-balance sm:text-[2.5rem] lg:text-[2.75rem] xl:text-[3.25rem]">
           Where should Froggy go today?
         </h1>
         {/* A short phone keeps the question and the starters above the composer. */}
@@ -146,22 +146,22 @@ export const EmptyState = ({
           word and watch it happen, receipts included.
         </p>
       </div>
-      <figure className="-mr-4 flex shrink-0 flex-col items-center gap-1 sm:-mr-6">
+      <figure className="short:hidden -mr-2 flex shrink-0 flex-col items-center gap-1 sm:-mr-3">
         <FrogMark
-          className="short:size-14 size-20 sm:size-32 lg:size-44"
+          className="size-20 sm:size-32 lg:size-36 xl:size-40"
           data-slot="home-frog"
           pose={poseForHome(waiting, busy)}
         />
-        <figcaption className="text-machine text-muted-foreground hidden sm:block">
+        <figcaption className="text-muted-foreground hidden text-xs sm:block">
           {copyForHome(waiting, busy)}
         </figcaption>
       </figure>
     </div>
-    <div className="short:gap-2 grid grid-cols-2 gap-3 sm:grid-cols-6 sm:gap-4">
-      <BalanceTile className="col-span-2 sm:col-span-6 lg:col-span-2 lg:row-span-2" />
+    <div className="short:gap-2 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+      <BalanceTile className="col-span-2 sm:col-span-4" />
       <Link
         aria-label="Find tokens"
-        className={`${TILE} tile--mint col-span-2 sm:col-span-6 lg:col-span-4`}
+        className={`${TILE} tile--mint col-span-2 sm:col-span-4 lg:col-span-2`}
         search={{ discover: true }}
         to="/watchlist"
       >
@@ -186,8 +186,12 @@ export const EmptyState = ({
         }}
         type="button"
       >
-        <Glyph kind="trip" />
-        <span className="text-sm font-semibold sm:text-base">Plan a trip</span>
+        <span className="flex items-center gap-3">
+          <Glyph kind="trip" />
+          <span className="text-sm font-semibold sm:text-base">
+            Plan a trip
+          </span>
+        </span>
         <span className="text-muted-foreground hidden text-sm sm:block">
           Dates and budget first, then the booking pages, live.
         </span>
@@ -203,9 +207,11 @@ export const EmptyState = ({
         }}
         type="button"
       >
-        <Glyph kind="find" />
-        <span className="text-sm font-semibold sm:text-base">
-          Find something good
+        <span className="flex items-center gap-3">
+          <Glyph kind="find" />
+          <span className="text-sm font-semibold sm:text-base">
+            Find something good
+          </span>
         </span>
         <span className="text-muted-foreground hidden text-sm sm:block">
           Name a budget. Froggy shops, you approve.

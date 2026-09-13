@@ -1019,7 +1019,8 @@
     var(--card),
     var(--tile-accent) var(--tile-mix)
   );
-  box-shadow: var(--shadow-card);
+  /* Tinted blocks, flat at rest: the colour is the edge. The lift brings the shadow. */
+  box-shadow: none;
   color: var(--foreground);
   text-align: start;
   transition:
