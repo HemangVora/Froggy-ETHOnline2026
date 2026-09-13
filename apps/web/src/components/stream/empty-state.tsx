@@ -115,10 +115,10 @@ export const EmptyState = ({
       </figure>
     </div>
     <div className="short:gap-2 grid grid-cols-2 gap-3 sm:grid-cols-6 sm:gap-4">
-      <BalanceTile className="col-span-2 sm:row-span-2" />
+      <BalanceTile className="col-span-2 sm:col-span-6 lg:col-span-2 lg:row-span-2" />
       <Link
         aria-label="Find tokens"
-        className={`${TILE} tile--mint col-span-2 sm:col-span-4`}
+        className={`${TILE} tile--mint col-span-2 sm:col-span-6 lg:col-span-4`}
         search={{ discover: true }}
         to="/watchlist"
       >
@@ -134,7 +134,7 @@ export const EmptyState = ({
       </Link>
       <button
         aria-label="Plan a trip"
-        className={`${TILE} tile--cyan col-span-1 sm:col-span-2`}
+        className={`${TILE} tile--cyan col-span-1 sm:col-span-3 lg:col-span-2`}
         disabled={disabled}
         onClick={() => {
           onSend(
@@ -151,7 +151,7 @@ export const EmptyState = ({
       </button>
       <button
         aria-label="Find something good"
-        className={`${TILE} tile--lavender col-span-1 sm:col-span-2`}
+        className={`${TILE} tile--lavender col-span-1 sm:col-span-3 lg:col-span-2`}
         disabled={disabled}
         onClick={() => {
           onSend(
