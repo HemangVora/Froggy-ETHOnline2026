@@ -22,7 +22,7 @@ const TILE =
   "tile focus-visible:ring-ring/50 short:gap-2 short:p-3 flex flex-col gap-3 p-4 outline-none focus-visible:ring-3 sm:p-5";
 
 /** On a short phone the two small tiles become rows so all four clear the composer. */
-const SMALL_TILE = `${TILE} short:col-span-2 col-span-1 sm:col-span-2 lg:col-span-1`;
+const SMALL_TILE = `${TILE} short:col-span-2 short:py-2.5 col-span-1 sm:col-span-2 lg:col-span-1`;
 
 const dayOf = (iso: number): string =>
   new Date(iso).toLocaleDateString(undefined, {
@@ -39,7 +39,7 @@ const Glyph = ({ kind }: { readonly kind: "coin" | "trip" | "find" }) => {
   const shared = {
     "aria-hidden": true,
     className: "size-6 shrink-0",
-    fill: "var(--tile-accent)",
+    fill: "var(--tile-deep)",
     stroke: "currentColor",
     strokeLinecap: "round" as const,
     strokeLinejoin: "round" as const,
@@ -50,8 +50,10 @@ const Glyph = ({ kind }: { readonly kind: "coin" | "trip" | "find" }) => {
     return (
       <svg {...shared}>
         <circle cx="12" cy="12" r="9" />
-        <circle cx="12" cy="12" r="4.5" fill="none" />
-        <path d="M12 9.5v5" fill="none" />
+        <path
+          d="M12 8v8M9.5 10.5h4a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3h4"
+          fill="none"
+        />
       </svg>
     );
   }
@@ -133,7 +135,7 @@ export const EmptyState = ({
   <section
     aria-label="Use Froggy here"
     data-slot="home-intro"
-    className="short:gap-3 my-auto flex flex-col gap-4 py-1 sm:gap-5 xl:gap-6"
+    className="short:gap-2 flex flex-col gap-4 pt-1 sm:gap-5 sm:pt-4 lg:pt-8 xl:gap-6"
   >
     <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-3 sm:gap-6">
       <div className="min-w-0">
@@ -165,9 +167,9 @@ export const EmptyState = ({
         search={{ discover: true }}
         to="/watchlist"
       >
-        <span className="flex items-center gap-3">
+        <span className="flex items-start gap-3">
           <Glyph kind="coin" />
-          <span className="text-base font-semibold sm:text-lg">
+          <span className="text-base leading-6 font-semibold sm:text-lg">
             Find tokens
           </span>
         </span>
@@ -186,9 +188,9 @@ export const EmptyState = ({
         }}
         type="button"
       >
-        <span className="flex items-center gap-3">
+        <span className="flex items-start gap-3">
           <Glyph kind="trip" />
-          <span className="text-sm font-semibold sm:text-base">
+          <span className="text-sm leading-6 font-semibold sm:text-base">
             Plan a trip
           </span>
         </span>
@@ -207,9 +209,9 @@ export const EmptyState = ({
         }}
         type="button"
       >
-        <span className="flex items-center gap-3">
+        <span className="flex items-start gap-3">
           <Glyph kind="find" />
-          <span className="text-sm font-semibold sm:text-base">
+          <span className="text-sm leading-6 font-semibold sm:text-base">
             Find something good
           </span>
         </span>

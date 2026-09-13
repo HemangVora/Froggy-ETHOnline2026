@@ -1050,15 +1050,19 @@
 }
 .tile--pear {
   --tile-accent: var(--pear);
+  --tile-deep: var(--pear-deep);
 }
 .tile--mint {
   --tile-accent: var(--mint);
+  --tile-deep: var(--mint-deep);
 }
 .tile--cyan {
   --tile-accent: var(--cyan);
+  --tile-deep: var(--cyan-deep);
 }
 .tile--lavender {
   --tile-accent: var(--lavender);
+  --tile-deep: var(--lavender-deep);
 }
 /* Each tile's mark is drawn from one primitive: a circle, a triangle, a square. Not an icon set. */
 .tile-mark {

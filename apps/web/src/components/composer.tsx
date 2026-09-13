@@ -67,7 +67,7 @@ export const Composer = ({
   placeholder = "Ask Froggy to do something, or type / for commands…",
   suggestions,
 }: ComposerProps): React.ReactElement => {
-  const { conversationId } = useChatSurface();
+  const { conversationId, phone } = useChatSurface();
   const { draft: memory, update } = useConversationDraft(conversationId);
   const draft = memory.text;
   const { queued } = memory;
@@ -261,7 +261,8 @@ export const Composer = ({
               disabledReason,
               asking,
               busy,
-              placeholder
+              // A phone has no room for the long form; the hint line names /.
+              phone ? "Ask Froggy…" : placeholder
             )}
             rows={1}
             value={draft}

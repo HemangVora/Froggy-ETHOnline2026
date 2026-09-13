@@ -38,7 +38,7 @@ export const BalanceTile = ({
       to="/wallet"
     >
       <span className="flex min-w-0 flex-col gap-0.5">
-        <span className="short:flex-col short:items-start short:gap-0.5 flex items-center gap-2">
+        <span className="flex items-center gap-2 max-sm:flex-col max-sm:items-start max-sm:gap-0.5">
           <span className="text-sm font-semibold whitespace-nowrap">
             Your money
           </span>
@@ -46,18 +46,28 @@ export const BalanceTile = ({
         </span>
         <span className="text-muted-foreground short:hidden text-xs">
           {simulated
-            ? "Play money. Real receipts."
+            ? "Receipts are still real."
             : "Add money or take it out whenever you like."}
         </span>
       </span>
-      <span className="flex shrink-0 items-center gap-2">
-        <span className="short:text-lg text-2xl font-semibold tracking-tight tabular-nums sm:text-[1.75rem]">
+      <span className="flex shrink-0 items-center gap-3">
+        {/* A state word is not a balance: it steps down and goes quiet. */}
+        <span
+          className={
+            total === null
+              ? "text-muted-foreground text-lg font-semibold tracking-tight sm:text-xl"
+              : "short:text-lg text-2xl font-semibold tracking-tight tabular-nums sm:text-[1.75rem]"
+          }
+        >
           {amount}
         </span>
-        <ArrowUpRightIcon
-          aria-hidden
-          className="text-brand size-5 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none"
-        />
+        <span className="text-brand inline-flex items-center gap-1 text-sm font-semibold whitespace-nowrap">
+          <span className="hidden sm:inline">Wallet</span>
+          <ArrowUpRightIcon
+            aria-hidden
+            className="size-4 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none"
+          />
+        </span>
       </span>
     </Link>
   );
