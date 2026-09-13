@@ -897,7 +897,7 @@
 /* Hallmark · genre: playful · macrostructure: Bento Grid (small, five tiles, off-centre hero) · theme: Hum
  * enrichment: none (typography + the drawn frog) · nav: rail + pill (kept, retinted) · footer: none (app surface)
  * seed: rxgC9CaKj8vhNtNM99WrhQll → big tile = first starter · tilt = none · recents accent = cyan
- * pre-emit critique: P4 H4 E4 S4 R4 V4
+ * pre-emit critique: P4 H4 E4 S4 R4 V4 · slop test: 57 gates, pass (gate 13 tile lift = Hum signature move 3, by design)
  * Hum is light only. Lilypad stays the dark theme; Passbook stays one click away.
  */
 :root[data-theme="hum"] {

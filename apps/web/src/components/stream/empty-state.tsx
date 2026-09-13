@@ -199,7 +199,7 @@ export const EmptyState = ({
         </span>
       </button>
       <button
-        aria-label="Find something good"
+        aria-label="Find a deal"
         className={`${SMALL_TILE} tile--lavender`}
         disabled={disabled}
         onClick={() => {
@@ -212,7 +212,7 @@ export const EmptyState = ({
         <span className="flex items-start gap-3">
           <Glyph kind="find" />
           <span className="text-sm leading-6 font-semibold sm:text-base">
-            Find something good
+            Find a deal
           </span>
         </span>
         <span className="text-muted-foreground hidden text-sm sm:block">

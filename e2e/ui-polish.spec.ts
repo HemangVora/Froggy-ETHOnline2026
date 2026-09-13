@@ -228,7 +228,7 @@ test("short phone Home keeps its starter actions and composer reachable", async 
     page.getByRole("button", { name: "Plan a trip", exact: true })
   ).toBeInViewport();
   await expect(
-    page.getByRole("button", { name: "Find something good", exact: true })
+    page.getByRole("button", { name: "Find a deal", exact: true })
   ).toBeInViewport();
   await expect(
     page.getByRole("textbox", { name: "Message", exact: true })
