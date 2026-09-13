@@ -28,7 +28,10 @@ import {
 import { ComposerStack } from "../components/chat/composer-stack";
 import { HomeSummary } from "../components/chat/home-summary";
 import { LiveCardSlot } from "../components/chat/live-card-slot";
-import { ConversationHeader } from "../components/chat/recent-conversations";
+import {
+  ConversationHeader,
+  HomeRecentConversations,
+} from "../components/chat/recent-conversations";
 import { EmailThread } from "../components/email/email-thread";
 import { EmptyState } from "../components/stream/empty-state";
 import { Stream } from "../components/stream/stream";
@@ -268,8 +271,10 @@ export const ChatPage = (): ReactElement => {
       >
         {card(true)}
       </MobileBrowser>
-      <div className="relative flex min-h-0 min-w-0 flex-1 flex-col">
-        {firstUse ? <HomeSummary /> : null}
+      <div
+        className="home-experience relative flex min-h-0 min-w-0 flex-1 flex-col"
+        data-first-use={firstUse ? "true" : undefined}
+      >
         {popOut.mode === "inline" && showLive && !liveVisible && busy ? (
           // Over the stream, not in the column: its arrival moves nothing.
           <div className="pointer-events-none absolute inset-x-0 top-12 z-20 px-4">
@@ -297,12 +302,18 @@ export const ChatPage = (): ReactElement => {
                 className="min-h-0 flex-1 overflow-y-auto overscroll-contain"
                 data-slot="chat-welcome-scroll"
               >
-                <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 px-4 py-4 sm:px-6 sm:py-8">
+                <section
+                  aria-label="Use Froggy here"
+                  className="home-workbench"
+                  data-slot="home-workbench"
+                >
                   <EmptyState
                     disabled={disabledReason !== null}
                     onSend={send}
                   />
-                </div>
+                  <HomeSummary />
+                  <HomeRecentConversations />
+                </section>
               </div>
             ) : (
               <Stream

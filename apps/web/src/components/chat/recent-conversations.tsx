@@ -371,6 +371,52 @@ export const RecentConversations = ({
   );
 };
 
+export const HomeRecentConversations = (): ReactElement => {
+  const history = useHistoryPage("/api/conversations?limit=3&q=");
+  const conversations = history.records.filter(
+    (record): record is Conversation => record.kind === "conversation"
+  );
+  return (
+    <aside aria-label="Recent conversations" className="home-recents">
+      <div className="home-recents-heading">
+        <h2>Recent conversations</h2>
+        <HistoryIcon aria-hidden />
+      </div>
+      {history.isPending ? (
+        <output className="home-recents-note">
+          Checking your saved chats…
+        </output>
+      ) : null}
+      {history.isError ? (
+        <p className="home-recents-note">Saved chats are unavailable.</p>
+      ) : null}
+      {!history.isPending && !history.isError && conversations.length === 0 ? (
+        <p className="home-recents-note">
+          Nothing here yet. Start the first useful thing.
+        </p>
+      ) : null}
+      {conversations.length > 0 ? (
+        <ul className="home-recents-list">
+          {conversations.map((conversation) => (
+            <li key={conversation.id}>
+              <Link
+                className="home-recent-link"
+                params={{ conversationId: conversation.id }}
+                to="/chat/$conversationId"
+              >
+                <span>{conversation.title}</span>
+                <time dateTime={new Date(conversation.updatedAt).toISOString()}>
+                  {new Date(conversation.updatedAt).toLocaleDateString()}
+                </time>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </aside>
+  );
+};
+
 export const ConversationHeader = (): ReactElement => {
   const [loadedOlder, setLoadedOlder] = useState(false);
   const stale = useHistoryStale();

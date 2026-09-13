@@ -9,6 +9,7 @@ const buttonVariants = cva(
       variant: {
         default:
           "action-primary bg-primary text-primary-foreground active:bg-primary",
+        push: "push-button bg-primary text-primary-foreground",
         outline:
           "border-input bg-card text-foreground hover:bg-muted active:bg-muted aria-expanded:bg-muted border",
         secondary:

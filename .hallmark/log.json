@@ -1,0 +1,24 @@
+[
+  {
+    "at": "2026-09-13",
+    "branch": "redesign/hum-codex",
+    "choices": {
+      "bigStarter": "Find tokens",
+      "recentConversationsAccent": "cyan",
+      "tilt": "money tile +3°"
+    },
+    "critique": {
+      "E": 9,
+      "H": 9,
+      "P": 9,
+      "R": 10,
+      "S": 9,
+      "V": 9
+    },
+    "genre": "playful",
+    "macrostructure": "Workbench",
+    "seed": "olkWdzYFR7j6dAjqVrnE79hO",
+    "slopTest": "passed",
+    "theme": "Hum"
+  }
+]

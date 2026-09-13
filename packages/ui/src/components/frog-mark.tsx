@@ -97,6 +97,7 @@ function FrogMark({
           </clipPath>
           <g clipPath={`url(#frog-lid-${cx})`}>
             <rect
+              data-slot="frog-lid"
               fill="var(--frog-skin)"
               height="16"
               transform={`translate(0 ${lid})`}

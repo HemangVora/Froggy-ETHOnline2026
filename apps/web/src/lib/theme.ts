@@ -4,23 +4,26 @@ import { useSyncExternalStore } from "react";
 import { keyboardInteraction } from "./motion";
 
 const STORAGE_KEY = "froggy-theme";
-type Theme = "passbook" | "lilypad" | "system";
+type Theme = "hum" | "passbook" | "lilypad" | "system";
 
 const parseTheme = (value: string | null | undefined): Theme | null =>
-  value === "passbook" || value === "lilypad" || value === "system"
+  value === "hum" ||
+  value === "passbook" ||
+  value === "lilypad" ||
+  value === "system"
     ? value
     : null;
 
 const readSavedTheme = (): Theme => {
   try {
-    return parseTheme(localStorage.getItem(STORAGE_KEY)) ?? "passbook";
+    return parseTheme(localStorage.getItem(STORAGE_KEY)) ?? "hum";
   } catch {
     // Private browsers can deny storage; appearance still works for this tab.
-    return "passbook";
+    return "hum";
   }
 };
 
-let preference: Theme = "passbook";
+let preference: Theme = "hum";
 const listeners = new Set<() => void>();
 const subscribe = (listener: () => void): (() => void) => {
   listeners.add(listener);
@@ -30,13 +33,23 @@ const subscribe = (listener: () => void): (() => void) => {
 };
 const snapshot = (): Theme => preference;
 
+const resolvedTheme = (dark: boolean): "hum" | "passbook" | "lilypad" => {
+  if (dark) {
+    return "lilypad";
+  }
+  if (preference === "passbook") {
+    return "passbook";
+  }
+  return "hum";
+};
+
 const applyTheme = (): void => {
   const dark =
     preference === "lilypad" ||
     (preference === "system" &&
       window.matchMedia("(prefers-color-scheme: dark)").matches);
   document.documentElement.classList.toggle("dark", dark);
-  document.documentElement.dataset["theme"] = dark ? "lilypad" : "passbook";
+  document.documentElement.dataset["theme"] = resolvedTheme(dark);
   for (const listener of listeners) {
     listener();
   }

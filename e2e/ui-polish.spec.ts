@@ -27,7 +27,7 @@ for (const width of [320, 390, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/");
     await expect(
-      page.getByRole("heading", { name: "What can I help with?" })
+      page.getByRole("heading", { name: "Where should Froggy go today?" })
     ).toBeVisible();
     await expect(
       page
@@ -53,7 +53,7 @@ for (const width of [320, 390, 1440]) {
       timeout: 20_000,
     });
     await expect(
-      page.getByRole("heading", { name: "What can I help with?" })
+      page.getByRole("heading", { name: "Where should Froggy go today?" })
     ).toHaveCount(0);
     await expect(
       page
@@ -219,7 +219,7 @@ test("short phone Home keeps its starter actions and composer reachable", async 
   await page.setViewportSize({ width: 320, height: 568 });
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: "What can I help with?" })
+    page.getByRole("heading", { name: "Where should Froggy go today?" })
   ).toBeInViewport();
   await expect(
     page.getByRole("link", { name: "Find tokens", exact: true })

@@ -153,7 +153,7 @@ test("Home keeps its position when earlier receipts arrive", async ({
     await page.goto("/chat");
     const welcome = page.getByRole("region", { name: "Use Froggy here" });
     const heading = page.getByRole("heading", {
-      name: "What can I help with?",
+      name: "Where should Froggy go today?",
     });
     await expect(heading).toBeVisible();
     await page.evaluate(async () => {

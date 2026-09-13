@@ -15,6 +15,7 @@ import {
   InputGroupTextarea,
 } from "@froggy/ui/components/input-group";
 import { Kbd, KbdGroup } from "@froggy/ui/components/kbd";
+import { StarBurst } from "@froggy/ui/components/star-burst";
 import { ArrowUpIcon, SquareIcon, XIcon } from "lucide-react";
 import { useEffect, useId, useState, useCallback } from "react";
 import type { ReactNode } from "react";
@@ -84,6 +85,7 @@ export const Composer = ({
     [update]
   );
   const [hint, setHint] = useState<string | null>(null);
+  const [burst, setBurst] = useState(0);
   const disabled = disabledReason !== null;
   const commands = slashMatches(draft);
   const reasonId = useId();
@@ -134,6 +136,7 @@ export const Composer = ({
     if (busy) {
       setQueued(request);
     } else {
+      setBurst((current) => current + 1);
       onSend(request);
     }
     update({ email: null });
@@ -265,7 +268,7 @@ export const Composer = ({
           />
           <InputGroupAddon align="block-end">
             {tools}
-            <div className="ml-auto">
+            <div className="relative ml-auto">
               {busy ? (
                 <Button
                   aria-label="Stop the run"
@@ -286,10 +289,14 @@ export const Composer = ({
                   }
                   size="icon"
                   type="submit"
+                  variant="push"
                 >
                   <ArrowUpIcon />
                 </Button>
               )}
+              {burst > 0 ? (
+                <StarBurst className="-top-1 -right-1" key={burst} />
+              ) : null}
             </div>
           </InputGroupAddon>
         </InputGroup>
