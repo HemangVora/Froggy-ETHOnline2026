@@ -166,23 +166,22 @@ export const EmptyState = ({
     data-slot="home-intro"
     className="short:gap-2 flex flex-1 flex-col gap-4 pt-1 sm:gap-5 sm:pt-3 xl:gap-6 xl:pt-6"
   >
-    <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-3 sm:gap-6">
-      <div className="min-w-0 pb-1">
-        <h1 className="font-display short:text-xl text-[1.85rem] leading-[1.02] font-extrabold tracking-[-0.035em] text-balance sm:text-[2.5rem] lg:text-[3rem] xl:text-[3.5rem]">
-          Where should Froggy go today?
-        </h1>
-        {/* A short phone keeps the question and the starters above the composer. */}
-        <p className="text-muted-foreground short:hidden mt-2 max-w-md text-sm leading-relaxed sm:mt-3 sm:text-base xl:text-lg">
-          A little research. A trip to plan. Something worth finding. Say the
-          word, watch it happen, and keep the receipt.
-        </p>
-      </div>
-      <figure className="short:hidden -mr-2 flex shrink-0 flex-col items-end gap-2.5 sm:-mr-3">
+    <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-x-3 gap-y-1 sm:gap-x-6">
+      {/* The question owns the full width until the wide tier; the frog sits beside the lede. */}
+      <h1 className="font-display short:text-xl col-span-2 text-[1.85rem] leading-[1.02] font-extrabold tracking-[-0.035em] text-balance sm:text-[2.75rem] lg:col-span-1 lg:text-[3rem] xl:text-[3.5rem]">
+        Where should Froggy go today?
+      </h1>
+      {/* A short phone keeps the question and the starters above the composer. */}
+      <p className="text-muted-foreground short:hidden mt-1 max-w-md self-start text-sm leading-relaxed sm:mt-2 sm:text-base xl:text-lg">
+        A little research. A trip to plan. Something worth finding. Say the
+        word, watch it happen, and keep the receipt.
+      </p>
+      <figure className="short:hidden -mr-2 flex shrink-0 flex-col items-end gap-2.5 sm:-mr-3 lg:col-start-2 lg:row-span-2 lg:row-start-1">
         <figcaption className="say hidden text-xs font-medium sm:block sm:text-sm">
           {copyForHome(waiting, busy)}
         </figcaption>
         <FrogMark
-          className="size-20 sm:size-32 lg:size-40 xl:size-44"
+          className="size-20 sm:size-28 lg:size-40 xl:size-44"
           data-slot="home-frog"
           pose={poseForHome(waiting, busy)}
         />
@@ -202,7 +201,7 @@ export const EmptyState = ({
             Find tokens
           </span>
         </span>
-        <span className="text-foreground/75 hidden max-w-sm text-sm leading-relaxed sm:block">
+        <span className="text-foreground/75 hidden max-w-sm text-sm leading-relaxed sm:block lg:hidden xl:block">
           Ask what is moving, keep a watchlist, and buy only when you say so.
         </span>
       </Link>
@@ -223,7 +222,7 @@ export const EmptyState = ({
             Plan a trip
           </span>
         </span>
-        <span className="text-foreground/75 hidden text-sm sm:block">
+        <span className="text-foreground/75 hidden text-sm sm:block lg:hidden xl:block">
           Dates and budget first, then the booking pages, live.
         </span>
       </button>
@@ -244,7 +243,7 @@ export const EmptyState = ({
             Find a deal
           </span>
         </span>
-        <span className="text-foreground/75 hidden text-sm sm:block">
+        <span className="text-foreground/75 hidden text-sm sm:block lg:hidden xl:block">
           Name a budget. Froggy shops, you approve.
         </span>
       </button>
