@@ -295,7 +295,7 @@ export const ChatPage = (): ReactElement => {
                 className="min-h-0 flex-1 overflow-y-auto overscroll-contain"
                 data-slot="chat-welcome-scroll"
               >
-                <div className="mx-auto flex w-full max-w-4xl flex-col gap-4 px-4 py-4 sm:px-6 sm:py-8">
+                <div className="mx-auto flex min-h-full w-full max-w-5xl flex-col gap-4 px-4 py-4 sm:px-6 sm:py-8">
                   <EmptyState
                     busy={busy}
                     disabled={disabledReason !== null}
