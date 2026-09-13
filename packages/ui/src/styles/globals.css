@@ -714,6 +714,11 @@
   --color-refused: var(--destructive);
   --color-refused-soft: var(--refused-soft);
   --color-paper-deep: var(--paper-deep);
+  --color-pear: var(--pear);
+  --color-cyan: var(--cyan);
+  --color-mint: var(--mint);
+  --color-lavender: var(--lavender);
+  --color-coral: var(--coral);
   /* Streamdown frames code blocks and tables in shadcn's sidebar colour. Our
      rail uses the deeper paper too, so the two agree on the same step back. */
   --color-sidebar: var(--paper-deep);
@@ -921,8 +926,8 @@
   --primary-hi: oklch(84% 0.15 150);
   --primary-lo: oklch(70% 0.18 150);
   --primary-foreground: oklch(20% 0.012 250);
-  --brand: oklch(42% 0.12 150);
-  --brand-soft: oklch(80% 0.16 150 / 22%);
+  --brand: oklch(36% 0.12 150);
+  --brand-soft: oklch(80% 0.16 150 / 34%);
   --ring: oklch(56% 0.2 235);
   /* The four accents. Each owns its own surface; they never blend. */
   --pear: oklch(86% 0.18 95);
@@ -1006,37 +1011,35 @@
 }
 
 /*
- * A tile: a card that holds one accent at a low mix at rest and deepens it on
- * hover, lifting once. Each tile sets its own accent; the mix is shared.
+ * A tile: a solid accent surface with a real edge. It lifts on hover and
+ * presses down on click, like the push button; the colour is the identity,
+ * so there is no tint, no rule and no ambient shadow at rest.
  */
 @utility tile {
   --tile-accent: var(--pear);
-  --tile-mix: 20%;
+  --tile-deep: var(--pear-deep);
   position: relative;
-  border-radius: var(--radius);
-  background: color-mix(
-    in oklab,
-    var(--card),
-    var(--tile-accent) var(--tile-mix)
-  );
-  /* Tinted blocks, flat at rest: the colour is the edge. The lift brings the shadow. */
-  box-shadow: none;
+  border-radius: 24px;
+  background: var(--tile-accent);
   color: var(--foreground);
   text-align: start;
+  box-shadow: 0 4px 0 0 var(--tile-deep);
+  transform: translateY(0);
   transition:
-    transform 220ms var(--ease-spring),
-    box-shadow 220ms var(--ease-out),
-    background-color 220ms var(--ease-out);
+    transform 140ms var(--ease-press),
+    box-shadow 140ms var(--ease-press);
   @media (hover: hover) and (pointer: fine) {
     &:hover:not(:disabled) {
-      --tile-mix: 34%;
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-float);
+      transform: translateY(-2px);
+      box-shadow:
+        0 6px 0 0 var(--tile-deep),
+        0 14px 28px -12px var(--sh2);
     }
   }
   &:active:not(:disabled) {
-    transform: translateY(0);
-    transition-duration: 90ms;
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 0 var(--tile-deep);
+    transition-duration: 70ms;
   }
   &:disabled {
     opacity: 0.6;
@@ -1083,6 +1086,93 @@
 .tile-mark--find {
   border-radius: 6px;
   transform: rotate(8deg);
+}
+
+/* The frog's speech bubble: cream, a hairline, a tail pointing down at him. */
+.say {
+  position: relative;
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  background: var(--card);
+  padding: 0.5rem 0.8rem;
+  box-shadow: 0 2px 0 0 var(--border);
+}
+.say::after {
+  content: "";
+  position: absolute;
+  right: 28px;
+  bottom: -8px;
+  width: 13px;
+  height: 13px;
+  border-right: 1.5px solid var(--border);
+  border-bottom: 1.5px solid var(--border);
+  background: var(--card);
+  transform: rotate(45deg);
+}
+/* The balance is a receipt: a pear ticket with the app's own perforation. */
+.ticket--pear {
+  background: var(--pear);
+  box-shadow: 0 4px 0 0 var(--pear-deep);
+  transition:
+    transform 140ms var(--ease-press),
+    box-shadow 140ms var(--ease-press);
+}
+.ticket--pear [data-slot="ticket-stub"] {
+  background: color-mix(in oklab, var(--pear), var(--foreground) 7%);
+  color: var(--foreground);
+}
+@media (hover: hover) and (pointer: fine) {
+  .ticket--pear:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 6px 0 0 var(--pear-deep),
+      0 14px 28px -12px var(--sh2);
+  }
+}
+.ticket--pear:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 0 var(--pear-deep);
+}
+/* How a task goes: four numbered stages on a dashed rail. A real sequence. */
+.stage-num {
+  display: inline-grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  background: var(--stage-accent, var(--pear));
+  box-shadow: 0 2px 0 0 var(--stage-deep, var(--pear-deep));
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.stage-num--pear {
+  --stage-accent: var(--pear);
+  --stage-deep: var(--pear-deep);
+}
+.stage-num--cyan {
+  --stage-accent: var(--cyan);
+  --stage-deep: var(--cyan-deep);
+}
+.stage-num--lavender {
+  --stage-accent: var(--lavender);
+  --stage-deep: var(--lavender-deep);
+}
+.stage-num--mint {
+  --stage-accent: var(--mint);
+  --stage-deep: var(--mint-deep);
+}
+.stage-link {
+  flex: 1 1 1.5rem;
+  min-width: 1rem;
+  height: 0;
+  border-top: 2px dashed var(--border);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticket--pear,
+  .ticket--pear:hover {
+    transition: none;
+    transform: none;
+  }
 }
 
 /* The character moment: the frog leans in when the composer takes focus. */

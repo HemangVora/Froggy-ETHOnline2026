@@ -1,12 +1,11 @@
 /**
- * Home before the first message: the frog, one question, five tiles.
+ * Home before the first message: the frog says where things stand, the
+ * money is a receipt, the starters are toys, and the page names the four
+ * stages a task goes through.
  *
- * The composer below is the product; this column gives it a room. The hero
- * sits off-centre with the frog bleeding to the edge, the starters are one
- * big tile and two small ones rather than a row of equal chips, and the
- * balance keeps its own tile because money is the thing this app is honest
- * about. Recent conversations are the one dense strip on the screen, and
- * only when there are some: an empty strip is nothing, not a sentence.
+ * The composer below is the product; this column gives it a room. Recent
+ * conversations are the one dense strip on the screen, and only when there
+ * are some: an empty strip is nothing, not a sentence.
  */
 
 import type { Conversation } from "@froggy/domain";
@@ -16,13 +15,21 @@ import type { ReactElement } from "react";
 
 import { copyForHome, poseForHome } from "../../lib/frog-pose";
 import { useHistoryPage } from "../../lib/history-client";
-import { BalanceTile } from "../chat/home-summary";
+import { BalanceTicket } from "../chat/home-summary";
 
 const TILE =
   "tile focus-visible:ring-ring/50 short:gap-2 short:p-3 flex flex-col gap-3 p-4 outline-none focus-visible:ring-3 sm:p-5";
 
 /** On a short phone the two small tiles become rows so all four clear the composer. */
 const SMALL_TILE = `${TILE} short:col-span-2 short:py-2.5 col-span-1 sm:col-span-2 lg:col-span-1`;
+
+/** What a task goes through, in order. Numbered because it is a sequence. */
+const STAGES = [
+  "Ask",
+  "Watch it live",
+  "Approve each spend",
+  "Keep the receipt",
+] as const;
 
 const dayOf = (iso: number): string =>
   new Date(iso).toLocaleDateString(undefined, {
@@ -31,14 +38,14 @@ const dayOf = (iso: number): string =>
   });
 
 /**
- * Three marks drawn in the frog's ink and filled with the tile's own accent:
- * a coin, a suitcase, a bag. Not an icon set; the same three primitives the
- * mascot is built from.
+ * Three marks drawn in the frog's ink and filled with the tile's own deeper
+ * accent: a coin, a suitcase, a bag. Not an icon set; the same three
+ * primitives the mascot is built from.
  */
 const Glyph = ({ kind }: { readonly kind: "coin" | "trip" | "find" }) => {
   const shared = {
     "aria-hidden": true,
-    className: "size-6 shrink-0",
+    className: "size-7 shrink-0",
     fill: "var(--tile-deep)",
     stroke: "currentColor",
     strokeLinecap: "round" as const,
@@ -89,7 +96,7 @@ const RecentStrip = (): ReactElement | null => {
   return (
     <section
       aria-label="Recent conversations"
-      className="border-border mt-2 border-t border-dashed pt-3"
+      className="border-border mt-1 border-t border-dashed pt-3"
     >
       <ul className="divide-border flex flex-col divide-y divide-dashed">
         {recent.map((conversation) => (
@@ -120,6 +127,28 @@ const RecentStrip = (): ReactElement | null => {
   );
 };
 
+/** The four stages of a task on a dashed rail, anchored just above the composer. */
+const StageRail = (): ReactElement => (
+  <ol
+    aria-label="How a task goes"
+    className="hidden flex-wrap items-center gap-x-3 gap-y-2 pt-1 sm:flex lg:mt-auto"
+  >
+    {STAGES.map((word, index) => (
+      <li className="contents" key={word}>
+        <span className="flex items-center gap-2.5 text-sm font-semibold whitespace-nowrap">
+          <span aria-hidden className="stage-num stage-num--pear text-sm">
+            {index + 1}
+          </span>
+          {word}
+        </span>
+        {index < STAGES.length - 1 ? (
+          <span aria-hidden className="stage-link" />
+        ) : null}
+      </li>
+    ))}
+  </ol>
+);
+
 export const EmptyState = ({
   busy,
   disabled,
@@ -135,32 +164,32 @@ export const EmptyState = ({
   <section
     aria-label="Use Froggy here"
     data-slot="home-intro"
-    className="short:gap-2 flex flex-col gap-4 pt-1 sm:gap-5 sm:pt-4 lg:pt-8 xl:gap-6"
+    className="short:gap-2 flex flex-1 flex-col gap-4 pt-1 sm:gap-5 sm:pt-3 xl:gap-6 xl:pt-6"
   >
     <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-3 sm:gap-6">
-      <div className="min-w-0">
-        <h1 className="font-display short:text-xl text-[1.75rem] leading-[1.05] font-bold tracking-[-0.03em] text-balance sm:text-[2.5rem] lg:text-[2.75rem] xl:text-[3.25rem]">
+      <div className="min-w-0 pb-1">
+        <h1 className="font-display short:text-xl text-[1.85rem] leading-[1.02] font-extrabold tracking-[-0.035em] text-balance sm:text-[2.5rem] lg:text-[3rem] xl:text-[3.5rem]">
           Where should Froggy go today?
         </h1>
         {/* A short phone keeps the question and the starters above the composer. */}
-        <p className="text-muted-foreground short:hidden mt-2 max-w-md text-sm leading-relaxed sm:mt-3 sm:text-base lg:text-lg">
+        <p className="text-muted-foreground short:hidden mt-2 max-w-md text-sm leading-relaxed sm:mt-3 sm:text-base xl:text-lg">
           A little research. A trip to plan. Something worth finding. Say the
-          word and watch it happen, receipts included.
+          word, watch it happen, and keep the receipt.
         </p>
       </div>
-      <figure className="short:hidden -mr-2 flex shrink-0 flex-col items-center gap-1 sm:-mr-3">
+      <figure className="short:hidden -mr-2 flex shrink-0 flex-col items-end gap-2.5 sm:-mr-3">
+        <figcaption className="say hidden text-xs font-medium sm:block sm:text-sm">
+          {copyForHome(waiting, busy)}
+        </figcaption>
         <FrogMark
-          className="size-20 sm:size-32 lg:size-36 xl:size-40"
+          className="size-20 sm:size-32 lg:size-40 xl:size-44"
           data-slot="home-frog"
           pose={poseForHome(waiting, busy)}
         />
-        <figcaption className="text-muted-foreground hidden text-xs sm:block">
-          {copyForHome(waiting, busy)}
-        </figcaption>
       </figure>
     </div>
+    <BalanceTicket />
     <div className="short:gap-2 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
-      <BalanceTile className="col-span-2 sm:col-span-4" />
       <Link
         aria-label="Find tokens"
         className={`${TILE} tile--mint col-span-2 sm:col-span-4 lg:col-span-2`}
@@ -169,11 +198,11 @@ export const EmptyState = ({
       >
         <span className="flex items-start gap-3">
           <Glyph kind="coin" />
-          <span className="text-base leading-6 font-semibold sm:text-lg">
+          <span className="text-lg leading-7 font-bold sm:text-xl">
             Find tokens
           </span>
         </span>
-        <span className="text-muted-foreground short:hidden max-w-sm text-sm leading-relaxed">
+        <span className="text-foreground/75 hidden max-w-sm text-sm leading-relaxed sm:block">
           Ask what is moving, keep a watchlist, and buy only when you say so.
         </span>
       </Link>
@@ -190,11 +219,11 @@ export const EmptyState = ({
       >
         <span className="flex items-start gap-3">
           <Glyph kind="trip" />
-          <span className="text-sm leading-6 font-semibold sm:text-base">
+          <span className="text-base leading-7 font-bold sm:text-lg lg:text-base xl:text-lg">
             Plan a trip
           </span>
         </span>
-        <span className="text-muted-foreground hidden text-sm sm:block">
+        <span className="text-foreground/75 hidden text-sm sm:block">
           Dates and budget first, then the booking pages, live.
         </span>
       </button>
@@ -211,15 +240,16 @@ export const EmptyState = ({
       >
         <span className="flex items-start gap-3">
           <Glyph kind="find" />
-          <span className="text-sm leading-6 font-semibold sm:text-base">
+          <span className="text-base leading-7 font-bold sm:text-lg lg:text-base xl:text-lg">
             Find a deal
           </span>
         </span>
-        <span className="text-muted-foreground hidden text-sm sm:block">
+        <span className="text-foreground/75 hidden text-sm sm:block">
           Name a budget. Froggy shops, you approve.
         </span>
       </button>
     </div>
+    <StageRail />
     <RecentStrip />
   </section>
 );

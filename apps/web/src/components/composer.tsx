@@ -288,6 +288,7 @@ export const Composer = ({
                 <Button
                   aria-label="Send"
                   className="size-11 rounded-full"
+                  variant="push"
                   disabled={
                     disabled || (draft.trim() === "" && memory.email === null)
                   }
