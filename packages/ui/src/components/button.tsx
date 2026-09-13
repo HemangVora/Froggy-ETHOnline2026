@@ -9,6 +9,8 @@ const buttonVariants = cva(
       variant: {
         default:
           "action-primary bg-primary text-primary-foreground active:bg-primary",
+        /** The one primary moment on a screen: a pushed button with a real edge. */
+        push: "push bg-primary text-primary-foreground font-semibold",
         outline:
           "border-input bg-card text-foreground hover:bg-muted active:bg-muted aria-expanded:bg-muted border",
         secondary:

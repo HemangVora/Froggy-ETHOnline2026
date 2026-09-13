@@ -84,6 +84,8 @@ export const Composer = ({
     [update]
   );
   const [hint, setHint] = useState<string | null>(null);
+  // Counts sends so each one remounts the star; it fires once and is gone.
+  const [burst, setBurst] = useState(0);
   const disabled = disabledReason !== null;
   const commands = slashMatches(draft);
   const reasonId = useId();
@@ -135,6 +137,7 @@ export const Composer = ({
       setQueued(request);
     } else {
       onSend(request);
+      setBurst((count) => count + 1);
     }
     update({ email: null });
     setDraft("");
@@ -265,7 +268,10 @@ export const Composer = ({
           />
           <InputGroupAddon align="block-end">
             {tools}
-            <div className="ml-auto">
+            <div className="relative ml-auto">
+              {burst > 0 ? (
+                <span aria-hidden className="star-burst" key={burst} />
+              ) : null}
               {busy ? (
                 <Button
                   aria-label="Stop the run"

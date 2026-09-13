@@ -26,7 +26,6 @@ import {
   LiveBrowserCard,
 } from "../components/browser/live-browser-card";
 import { ComposerStack } from "../components/chat/composer-stack";
-import { HomeSummary } from "../components/chat/home-summary";
 import { LiveCardSlot } from "../components/chat/live-card-slot";
 import { ConversationHeader } from "../components/chat/recent-conversations";
 import { EmailThread } from "../components/email/email-thread";
@@ -269,7 +268,6 @@ export const ChatPage = (): ReactElement => {
         {card(true)}
       </MobileBrowser>
       <div className="relative flex min-h-0 min-w-0 flex-1 flex-col">
-        {firstUse ? <HomeSummary /> : null}
         {popOut.mode === "inline" && showLive && !liveVisible && busy ? (
           // Over the stream, not in the column: its arrival moves nothing.
           <div className="pointer-events-none absolute inset-x-0 top-12 z-20 px-4">
@@ -297,10 +295,12 @@ export const ChatPage = (): ReactElement => {
                 className="min-h-0 flex-1 overflow-y-auto overscroll-contain"
                 data-slot="chat-welcome-scroll"
               >
-                <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 px-4 py-4 sm:px-6 sm:py-8">
+                <div className="mx-auto flex w-full max-w-4xl flex-col gap-4 px-4 py-4 sm:px-6 sm:py-8">
                   <EmptyState
+                    busy={busy}
                     disabled={disabledReason !== null}
                     onSend={send}
+                    waiting={app.approvals.length + pendingPurchases}
                   />
                 </div>
               </div>

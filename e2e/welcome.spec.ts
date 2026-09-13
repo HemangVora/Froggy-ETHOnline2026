@@ -38,7 +38,7 @@ test("Home keeps a local identity, and offers the welcome from its foot", async 
   });
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: "What can I help with?" })
+    page.getByRole("heading", { name: "Where should Froggy go today?" })
   ).toBeVisible();
   await expect(page.locator('[data-pose="idle"]').first()).toBeVisible();
   await page.getByRole("button", { name: "Workspace menu" }).click();
@@ -140,7 +140,7 @@ test("the welcome runs through its four steps and lands on Home", async ({
 
   await expect(page).toHaveURL(/\/$/u);
   await expect(
-    page.getByRole("heading", { name: "What can I help with?" })
+    page.getByRole("heading", { name: "Where should Froggy go today?" })
   ).toBeVisible();
   await expect.poll(async () => await seenAt(page, request)).not.toBeNull();
   expect(errors).toEqual([]);
@@ -197,7 +197,7 @@ test("Skip setup is a way out too, and counts as welcomed", async ({
   await page.getByRole("button", { name: "Skip setup" }).click();
   await expect(page).toHaveURL(/\/$/u);
   await expect(
-    page.getByRole("heading", { name: "What can I help with?" })
+    page.getByRole("heading", { name: "Where should Froggy go today?" })
   ).toBeVisible();
   await expect.poll(async () => await seenAt(page, request)).not.toBeNull();
 });

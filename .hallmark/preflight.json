@@ -1,0 +1,21 @@
+{
+  "scanned": "2026-09-13",
+  "framework": "Vite 8 + React 19 + TanStack Router (Bun workspace)",
+  "fonts": "Manrope Variable + IBM Plex Mono via @fontsource (packages/ui/package.json); Hum adds Plus Jakarta Sans Variable + JetBrains Mono",
+  "palette": "hex custom properties in packages/ui/src/styles/globals.css :root (Passbook) and .dark (Lilypad); Hum adds :root[data-theme=\"hum\"] in OKLCH",
+  "motion": "motion 13 installed; --motion-* and --ease-* tokens",
+  "spacing": "Tailwind 4 default 4-pt scale",
+  "preserved": [
+    "semantic token names",
+    "Passbook and Lilypad themes",
+    "shadcn components",
+    "routes and component ownership"
+  ],
+  "introduced": [
+    "Hum theme tokens",
+    "push button variant",
+    "tile utility",
+    "star-burst",
+    "frog focus reaction"
+  ]
+}
