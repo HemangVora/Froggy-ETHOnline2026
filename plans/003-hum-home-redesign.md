@@ -123,7 +123,7 @@ Both branch from the same base commit of `main`. Both receive this file and the 
 ## 6. Deploy
 
 - Fork `grmkris/Froggy-ETHOnline2026` to `HemangVora/Froggy-ETHOnline2026` with `gh repo fork`; push both branches there.
-- One new Railway project `froggy-redesign` (owner's account, region `europe-west4`), two services `hum-fable` and `hum-codex`, each a GitHub-connected service on its branch, built from the repo `Dockerfile`. No variables: stub mode everywhere. `PORT` is read by the server; Railway injects it.
+- One new Railway project `froggy-redesign` (owner's account, region `europe-west4`), two services `hum-fable` and `hum-codex`, each a GitHub-connected service on its branch, built from the repo `Dockerfile`. One variable each, `APP_ORIGIN` set to the service's public URL: the server only accepts its WebSocket upgrades from that origin and answers 403 otherwise (found on the first live deploy on 13 Sep, where the page rendered but the app socket was refused). Everything else stays stub. `PORT` is read by the server; Railway injects it.
 - The repo's `.railway/railway.ts` is not applied (it targets the upstream project and `main`); the two services are created with the CLI. `railway` CLI 5.30.1 is installed; upgrade to 5.54 first if service creation flags are missing.
 - Health: `GET /health` on each URL reports every mode as `stub`.
 - Deliverable: two public URLs, plus screenshots of each at 1440 and 390 (Home, composer focused, and the Settings appearance toggle showing Hum selected), stored under `docs/design/redesign-2026-09-13/` and sent to the owner.
